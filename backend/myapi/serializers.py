@@ -1,11 +1,8 @@
 from rest_framework import serializers
 
-from .models import Hero,Vendedor,Venta,Producto
+from .models import Vendedor,Venta,Producto
 
-class HeroSerializer(serializers.HyperlinkedModelSerializer):
-    class Meta:
-        model = Hero
-        fields = ('name', 'alias')
+
 
 class VendedorSerializer(serializers.HyperlinkedModelSerializer):
     class Meta:
@@ -30,4 +27,14 @@ class VentaSerializer(serializers.HyperlinkedModelSerializer):
 class UserQuerySerializer(serializers.ModelSerializer):
     class Meta:
         model = Vendedor
+        fields = '__all__'
+
+class ProductQuerySerializer(serializers.ModelSerializer):
+    class Meta:
+        model = Producto
+        fields = '__all__'
+
+class SalesSerializer(serializers.ModelSerializer):
+    class Meta:
+        model = Venta
         fields = '__all__'
