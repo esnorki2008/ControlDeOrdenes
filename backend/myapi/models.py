@@ -10,7 +10,7 @@ class Hero(models.Model):
 
 
 class Vendedor(models.Model):
-    cod_vendedor = models.IntegerField()
+    cod_vendedor = models.IntegerField(default=0)
     usuario = models.CharField(max_length=60)
     password = models.CharField(max_length=60)
     
