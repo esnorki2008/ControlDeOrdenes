@@ -1,7 +1,8 @@
-import react from 'react'
+import React from 'react'
 import { Button, Form, Navbar, Nav } from 'react-bootstrap';
-
-
+import { connect } from 'react-redux'
+import { session } from '../redux'
+import { form } from '../redux'
 function Naveg(props) {
     return (
         <div>
@@ -14,18 +15,39 @@ function Naveg(props) {
                     <Nav className="mr-auto">
                     </Nav>
                     <Form inline>
-                        <h5>Articulos En El Carro </h5>
-                        <h3> : { 50 }</h3>
-                        
                         <Button variant="outline-light">Mi Catalogo</Button>
+                        
+                        {!props.logged ?
+                            
+                            <Button onClick={props.actForm} variant="outline-light">Ingresar Al Sistema</Button>  :
+                            <Button onClick={props.session}variant="outline-light">Salir Del Sistema</Button>
+                        }
+                        
                     </Form>
                 </Navbar>
             </div>
+            
         </div>
 
     )
 }
 
+const mapStateToProps = state => {
+    return {
+        logged: state.session.logged,
+        vistaForm: state.form.vistaForm
+    }
+}
+
+const mapDispatchToProps = dispatch => {
+    return {
+        session: () => dispatch(session(false)),
+        actForm: () => dispatch(form())
+    }
+}
 
 
-export default Naveg
+export default connect(
+    mapStateToProps,
+    mapDispatchToProps
+)(Naveg)

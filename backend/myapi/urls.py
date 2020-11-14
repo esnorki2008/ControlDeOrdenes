@@ -13,6 +13,7 @@ router.register(r'producto', views.ProductoViewSet)
 urlpatterns = [
     path('', include(router.urls)),
     path('api-auth/', include('rest_framework.urls', namespace='rest_framework')),
+    path('login/', views.UserLogin),
     path('user/', views.UserCrud),
     path('product/', views.ProductCrud),
     path('sales/', views.SalesCrud)

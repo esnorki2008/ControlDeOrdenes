@@ -22,24 +22,34 @@ class VentaViewSet(viewsets.ModelViewSet):
     queryset = Venta.objects.all().order_by('cod_producto_venta')
     serializer_class = VentaSerializer
 
-@api_view(['GET', 'POST'])
+@api_view(['POST'])
 #@renderer_classes((TemplateHTMLRenderer, JSONRenderer))
-def UserCrud(request):
+def UserLogin(request):
        
-        if request.method == 'GET':
+        if request.method == 'POST':
             #snippets = Vendedor.objects.all()
             value = (request.data).copy()
             user = value.get('usuario')
             passw = value.get('password')
             snippets = Vendedor.objects.filter(usuario=user,password=passw)
             serializer = UserQuerySerializer(snippets, many=True)
+            print(request)
             if len(serializer.data) >= 1:
                 print(snippets)
                 return Response({'status':'ok'})
             else:
                 return Response({'status':'error'},status=status.HTTP_400_BAD_REQUEST)
 
-        elif request.method == 'POST':
+        
+
+
+@api_view(['POST'])
+#@renderer_classes((TemplateHTMLRenderer, JSONRenderer))
+def UserCrud(request):
+       
+        
+
+        if request.method == 'POST':
             id = len(Vendedor.objects.all())
             value = (request.data).copy()
             value['cod_vendedor']=id
@@ -88,6 +98,7 @@ def ProductCrud(request):
         elif request.method == 'PUT':
             value = (request.data).copy()
             serializer = ProductQuerySerializer(data=value)
+            print(value)
             try:
                 field = Producto.objects.get(cod_producto=value.get('cod_producto'))
                 cod_vendedor_producto = value.get('cod_vendedor_producto')
@@ -107,6 +118,7 @@ def ProductCrud(request):
 
         elif request.method == 'DELETE':
             value = (request.data).copy()
+            print(value)
             cod_pro = value.get("cod_producto")
             try:
                 instance = Producto.objects.get(cod_producto=cod_pro)

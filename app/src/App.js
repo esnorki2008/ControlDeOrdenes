@@ -1,31 +1,25 @@
 import './App.css';
-import CakeContainer from './components/CakeContainer';
 import {Provider} from 'react-redux'
 import store from './redux/store'
-import HooksCakeContainer from './components/HooksCakeContainer';
-import FormSession from './components/FormSession';
-import LogoImage from './components/back.jpg'
-import StoreView from './components/StoreView';
-import Naveg from './components/Naveg';
-var sectionStyle1 = {
-  width: '100%',
-  height: '800px',
-  height: '100%',
-  
-  backgroundImage: `url(${LogoImage})`,
-  backgroundSize: 'cover'  
 
-}
+
+import FormSession from './components/FormSession';
+import StoreView from './components/StoreView';
+
+import AppContainer from './components/AppContainer';
+
 //<FormSession/>
+//<StoreView/>
 function App() {
   return (
-    <Provider store={store} >
+    <Provider store={store}>
     <div className="App" >
-    <Naveg/>
-      <StoreView/>
+    
+      <AppContainer/>
       
     </div>
     </Provider>
+    
   );
 }
 
