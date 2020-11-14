@@ -1,7 +1,9 @@
 import { FORM } from './formTypes'
 
 const initialState = {
-  vistaForm: false
+  vistaForm: false,
+  t1Form : '',
+  t2Form : ''
 }
 
 
@@ -11,7 +13,10 @@ const formReducer =  (state = initialState, action) => {
 
     return {
       ...state,
-      vistaForm: !state.vistaForm
+      vistaForm: action.vistaForm,
+      t1Form: action.t1Form,
+      t2Form: action.t2Form
+
     }
 
     default: return state

@@ -3,7 +3,12 @@ import { Button, Form, Navbar, Nav } from 'react-bootstrap';
 import { connect } from 'react-redux'
 import { session } from '../redux'
 import { form } from '../redux'
+import store from '../redux/store';
 function Naveg(props) {
+    function show(){
+        store.dispatch(form(!props.vistaForm))
+    }
+
     return (
         <div>
             
@@ -19,7 +24,7 @@ function Naveg(props) {
                         
                         {!props.logged ?
                             
-                            <Button onClick={props.actForm} variant="outline-light">Ingresar Al Sistema</Button>  :
+                            <Button onClick={show } variant="outline-light">Ingresar Al Sistema</Button>  :
                             <Button onClick={props.session}variant="outline-light">Salir Del Sistema</Button>
                         }
                         
