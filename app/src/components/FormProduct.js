@@ -12,7 +12,7 @@ var sectionStyle = {
 
     opacity: 0.9
 }
-function FormProduct() {
+function FormProduct(props) {
     let textName = React.createRef();
     let textDesc = React.createRef();
     let textPric = React.createRef();
@@ -25,10 +25,20 @@ function FormProduct() {
         handleClick()
         store.dispatch(createProduct())
     }
+    //
+            
     return (
         <div>
+            <h3>Reporte De Vendedor</h3>
+            
+            <h4>Total De Ventas Por Producto</h4>
+            {props.r1.map(ob => <div  >{ob.name} : {ob.total}</div>)}
+            <h4>Total de Ventas Global(del vendedor actual)</h4>
+            <p>{props.r2.total}</p>
+            <h4>Promedio de los precios manejados </h4>
+            <p>{props.r3.total}</p>
             <div className=" d-flex flex-row justify-content-center align-items-center">
-
+                
                 <Form className='mt-5 col-4' style={sectionStyle} id='tran'>
                     <br />
                     <Form.Group controlId="formEmail" >
@@ -69,7 +79,10 @@ function FormProduct() {
 
 const mapStateToProps = state => {
     return {
-        logged: state.session.logged
+        logged: state.session.logged,
+        r1: state.sales.r1,
+        r2: state.sales.r2,
+        r3: state.sales.r3
     }
 }
 

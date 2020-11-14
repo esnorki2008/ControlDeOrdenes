@@ -25,6 +25,12 @@ class Producto(models.Model):
     precio = models.IntegerField()
     cod_vendedor_producto = models.ForeignKey(Vendedor,on_delete=models.CASCADE)
 
+    def price(self):
+        return self.precio
+    
+    def name(self):
+        return self.nombre
+
     def __str__(self):
         return str(self.id)
 

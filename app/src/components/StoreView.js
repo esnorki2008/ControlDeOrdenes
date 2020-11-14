@@ -1,17 +1,27 @@
 import React, { useEffect } from 'react'
-import { Button,Card, CardColumns } from 'react-bootstrap';
+import { Button, Card, CardColumns } from 'react-bootstrap';
 import { connect } from 'react-redux'
-import { fetchProduct } from '../redux'
+import { fetchProduct, buy,selectProductId } from '../redux'
+import store from '../redux/store';
 
-function StoreView({ productData,userIdReal, fetchProduct }) {
+
+function StoreView({ productData, userIdReal, buy, fetchProduct }) {
     useEffect(() => {
         fetchProduct()
     }, [])
 
-    function ShowStore(product){
-        return userIdReal !== product.cod_vendedor_producto
+    function ShowStore(product) {
+        if (userIdReal === null)
+            return 2
+        if (userIdReal !== product.cod_vendedor_producto)
+            return 1
+        return 0
     }
 
+    function Buy(product) {
+        store.dispatch(selectProductId(product.cod_producto))
+        buy()
+    }
     return (
         <div>
 
@@ -45,12 +55,12 @@ function StoreView({ productData,userIdReal, fetchProduct }) {
                                                         </Card.Text>
                                                     </Card.Body>
                                                     <Card.Footer>
-                                                    {ShowStore(product) ?
-                                                        <Button type="submit" className='col-11 '>
-                                                            Comprar
+                                                        {ShowStore(product) === 1 ?
+                                                            <Button onClick ={()=>{Buy(product)}} type="submit" className='col-11 '>
+                                                                Comprar
                                                          </Button>
-                                                        :<p>No Puede Comprar Sus Propios Articulos</p>
-                                                    }
+                                                            : ShowStore(product)===2 ?<p>Ingrese Sesion Para Comprar</p>:<p>No Puede Comprar Sus Propios Articulos</p>
+                                                        }
                                                     </Card.Footer>
                                                 </Card>
                                             </div>)}
@@ -73,7 +83,8 @@ const mapStateToProps = state => {
 
 const mapDispatchToProps = dispatch => {
     return {
-        fetchProduct: () => dispatch(fetchProduct())
+        fetchProduct: () => dispatch(fetchProduct()),
+        buy: () => dispatch(buy())
     }
 }
 

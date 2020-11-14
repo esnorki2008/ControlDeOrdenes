@@ -26,9 +26,7 @@ function FormUpdate(props) {
         handleClick()
         store.dispatch(updateProduct())
     }
-    function onChange(e) {
-        console.log(2)
-   }
+    
     return (
         <div>
             <div className=" d-flex flex-row justify-content-center align-items-center">

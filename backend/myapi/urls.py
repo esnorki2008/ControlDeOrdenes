@@ -17,5 +17,5 @@ urlpatterns = [
     path('user/', views.UserCrud),
     path('product/', views.ProductCrud),
     path('sales/', views.SalesCrud),
-    path('real/', views.UserReal)
+    path('statistics/', views.Statistics)
 ]

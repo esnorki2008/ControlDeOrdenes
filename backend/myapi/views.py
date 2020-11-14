@@ -24,8 +24,7 @@ class VentaViewSet(viewsets.ModelViewSet):
 
 @api_view(['POST'])
 #@renderer_classes((TemplateHTMLRenderer, JSONRenderer))
-def UserLogin(request):
-       
+def UserLogin(request):  
         if request.method == 'POST':
             #snippets = Vendedor.objects.all()
             value = (request.data).copy()
@@ -37,26 +36,37 @@ def UserLogin(request):
             if len(serializer.data) >= 1:
                 for each in snippets:
                     print(each.cod())
-                    return Response({'userId':(int(each.cod())),'userIdReal':(int(str(each))),'name':each.name() })
-                
-                 
+                    return Response({'userId':(int(each.cod())),'userIdReal':(int(str(each))),'name':each.name() })                
             else:
                 return Response({'status':'error'},status=status.HTTP_400_BAD_REQUEST)
 
-        
+
 @api_view(['POST'])
-#@renderer_classes((TemplateHTMLRenderer, JSONRenderer))
-def UserReal(request):
+def Statistics(request):  
         if request.method == 'POST':
             value = (request.data).copy()
-            try:
-                field = Vendedor.objects.get(cod_vendedor=value.get('id'))
-                id = value.get("id")
-                return Response({"request":int(str(field))})
-            except:
-                return Response({"request":"error"},status=status.HTTP_400_BAD_REQUEST)
-
-      
+            user = value.get('user')
+            print(user)
+           
+            productLst = Producto.objects.filter(cod_vendedor_producto=user)
+            rep1 = []
+            earned = 0
+            average = 0
+            for product in productLst:
+                    price = product.price()
+                    productId = int(str(product))
+                    name = product.name()
+                    salesLst = Venta.objects.filter(cod_producto_venta=productId)
+                    size = len(salesLst)
+                    rep1.append({'id':productId,'name':name,'total': price * size})
+                    average = average + price
+                    earned = earned + price * size
+            rep2={'total': earned}
+            amou = len(productLst)
+            if amou > 0:
+                average = average / len(productLst)
+            rep3={'total': average}
+            return Response({'u':rep1,'d':rep2,'t':rep3})
 
 
 @api_view(['POST'])

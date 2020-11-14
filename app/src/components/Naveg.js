@@ -1,14 +1,20 @@
 import React from 'react'
 import { Button, Form, Navbar, Nav } from 'react-bootstrap';
 import { connect } from 'react-redux'
-import { session,crud } from '../redux'
+import { session,crud, statistics } from '../redux'
 import { form } from '../redux'
 import store from '../redux/store';
 function Naveg(props) {
     function show(){
         store.dispatch(form(!props.vistaForm))
     }
-
+    function crud(){
+        props.crud()
+        props.stat()
+    }
+    function items(){
+        show()    
+    }
     return (
         <div>
             
@@ -21,11 +27,11 @@ function Naveg(props) {
                     </Nav>
                     <Form inline>
                         {props.logged ?
-                        <Button onClick={props.crud} variant="outline-light">Mi Catalogo</Button>
+                        <Button onClick={crud} variant="outline-light">Mi Catalogo</Button>
                         :<p></p>}
                         {!props.logged ?
                             
-                            <Button onClick={show } variant="outline-light">Ingresar Al Sistema</Button>  :
+                            <Button onClick={ items } variant="outline-light">Ingresar Al Sistema</Button>  :
                             <Button onClick={props.session}variant="outline-light">Salir Del Sistema</Button>
                         }
                         
@@ -49,7 +55,8 @@ const mapDispatchToProps = dispatch => {
     return {
         session: () => dispatch(session(false)),
         crud: () => dispatch(crud(false)),
-        actForm: () => dispatch(form())
+        actForm: () => dispatch(form()),
+        stat: () => dispatch(statistics())
     }
 }
 
