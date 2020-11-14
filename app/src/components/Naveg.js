@@ -1,7 +1,7 @@
 import React from 'react'
 import { Button, Form, Navbar, Nav } from 'react-bootstrap';
 import { connect } from 'react-redux'
-import { session } from '../redux'
+import { session,crud } from '../redux'
 import { form } from '../redux'
 import store from '../redux/store';
 function Naveg(props) {
@@ -20,8 +20,9 @@ function Naveg(props) {
                     <Nav className="mr-auto">
                     </Nav>
                     <Form inline>
-                        <Button variant="outline-light">Mi Catalogo</Button>
-                        
+                        {props.logged ?
+                        <Button onClick={props.crud} variant="outline-light">Mi Catalogo</Button>
+                        :<p></p>}
                         {!props.logged ?
                             
                             <Button onClick={show } variant="outline-light">Ingresar Al Sistema</Button>  :
@@ -47,6 +48,7 @@ const mapStateToProps = state => {
 const mapDispatchToProps = dispatch => {
     return {
         session: () => dispatch(session(false)),
+        crud: () => dispatch(crud(false)),
         actForm: () => dispatch(form())
     }
 }

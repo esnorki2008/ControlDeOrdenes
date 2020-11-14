@@ -24,7 +24,7 @@ const postLogin = (state) => {
             headers: { 'Content-Type': 'multipart/form-data' }
         })
             .then(res => {
-                dispatch(session(true))
+                dispatch(session(true,res.data.userId,res.data.userIdReal,res.data.name))
                 dispatch(form())
             }).catch(error => {
                 dispatch(session(false))

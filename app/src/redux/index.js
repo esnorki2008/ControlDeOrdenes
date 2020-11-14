@@ -1,3 +1,10 @@
 export { form } from './form/formActions'
 export { session } from './session/sessionActions'
-
+export { crud } from './session/sessionActions'
+export { fetchProduct } from './product/productActions'
+export { inputProduct } from './product/productActions'
+export { createProduct } from './product/productActions'
+export { deleteProduct } from './product/productActions'
+export { selectProductId } from './product/productActions'
+export { inputProductUpdate } from './product/productActions'
+export { updateProduct } from './product/productActions'

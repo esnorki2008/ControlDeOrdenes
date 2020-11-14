@@ -9,6 +9,12 @@ class Vendedor(models.Model):
     usuario = models.CharField(max_length=60)
     password = models.CharField(max_length=60)
     
+    def cod(self):
+        return self.cod_vendedor
+    
+    def name(self):
+        return self.usuario
+    
     def __str__(self):
         return str(self.id)
 

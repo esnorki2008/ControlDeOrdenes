@@ -35,12 +35,28 @@ def UserLogin(request):
             serializer = UserQuerySerializer(snippets, many=True)
             print(request)
             if len(serializer.data) >= 1:
-                print(snippets)
-                return Response({'status':'ok'})
+                for each in snippets:
+                    print(each.cod())
+                    return Response({'userId':(int(each.cod())),'userIdReal':(int(str(each))),'name':each.name() })
+                
+                 
             else:
                 return Response({'status':'error'},status=status.HTTP_400_BAD_REQUEST)
 
         
+@api_view(['POST'])
+#@renderer_classes((TemplateHTMLRenderer, JSONRenderer))
+def UserReal(request):
+        if request.method == 'POST':
+            value = (request.data).copy()
+            try:
+                field = Vendedor.objects.get(cod_vendedor=value.get('id'))
+                id = value.get("id")
+                return Response({"request":int(str(field))})
+            except:
+                return Response({"request":"error"},status=status.HTTP_400_BAD_REQUEST)
+
+      
 
 
 @api_view(['POST'])

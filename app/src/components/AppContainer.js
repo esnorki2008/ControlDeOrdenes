@@ -5,13 +5,15 @@ import FormSession from './FormSession';
 import StoreView from './StoreView';
 ///
 import Naveg from './Naveg';
+import FormProduct from './FormProduct';
 
 function AppContainer(props) {
     return (
         <div>
           <Naveg/>
           {props.vistaForm ? <FormSession/> : <div></div>} 
-          {props.logged ? <p>LOGGEADO</p> : <p>SIN LOGGIN</p>}
+    {props.logged ? <div><p>LOGGEADO {props.userName } </p> {props.crud?<FormProduct/>:<p></p>}</div>: <p>SIN LOGGIN</p>}
+          
           <StoreView/>
         </div>
 
@@ -21,7 +23,9 @@ function AppContainer(props) {
 const mapStateToProps = state => {
     return {
         logged: state.session.logged,
-        vistaForm: state.form.vistaForm
+        crud: state.session.crud,
+        vistaForm: state.form.vistaForm,
+        userName:state.session.userName
     }
   }
   
